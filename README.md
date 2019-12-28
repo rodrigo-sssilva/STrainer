@@ -1,6 +1,6 @@
 # STrainer
 Shovel Knight practice tool.
-Starting support for 4.0 although it's *not* done yet... 
+Starting support for 4.0 although it's **NOT** done yet... 
 
 If you want to use the 4.0 offsets I've found then Health, Mana, BossHP, Gold are only working in Shovel of Hope so far (more work to do...)
 Teleporting between stages should work by using the updated offsets and strainer.lua
