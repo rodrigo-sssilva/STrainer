@@ -5,7 +5,7 @@ Starting support for 4.0 although it's *not* done yet...
 If you want to use the 4.0 offsets I've found then Health, Mana, BossHP, Gold are only working in Shovel of Hope so far (more work to do...)
 Teleporting between stages should work by using the updated offsets and strainer.lua
 
-##3.3
+##3.3##
 If you want the 3.3 version then you can find it via speedrun.com:
 https://www.speedrun.com/tools/STrainer17-alt_b63sk.zip
 
