@@ -1,10 +1,17 @@
 --Attempt of trainer for SK
-
+--    4.0.b changes:
+--     varCharacter is now 0 || 1 == Shovel Knight
+--                         2      == Plague
+--                         3      == Spectre
+--                         4      == King
+--                         
+--    varScreen is now all shifted by 2 for some reason
+ --   varGoto is nolonger the value of 273 but 453
 require("strainerpointers")
 
 --goto table
-loadTable = {11,23,24,12,13,14,15,16,17,18,19,20,21,22,46,47,48,50,37,38,25,26,27,41,42,43,44,45}
-bossWarpTable = {11,12,13,14,15,16,17,18,19,20,21,22,24,38}
+loadTable = {13,25,26,14,15,16,17,18,19,20,21,22,23,24,48,49,50,52,39,40,27,28,29,43,44,45,46,47}
+bossWarpTable = {13,14,15,16,17,18,19,20,21,22,23,24,26,40}
 
 --checkpoint position offset
 checkpointOffset = 1.4
@@ -69,10 +76,10 @@ customHP = 0
 gameIsAttached = false
 function ReattachGame()
          if gameIsAttached then
-            if readInteger(varGoto) == 273 then return true end
+            if readInteger(varGoto) == 453 then return true end
          end
          openProcess("ShovelKnight.exe")
-         if readInteger(varGoto) == 273 then
+         if readInteger(varGoto) == 453 then
             gameIsAttached = true
             setProperty(STrainer,"Caption","STrainer")
             assert = addresslist_getMemoryRecordByID(addresslist,20)
@@ -189,19 +196,21 @@ end
 
 --Performs warp to boss, based on current stage
 --For 3.0A, old values are incremented by 3
+--For 4.0B, values have been incremented by 2 from 3.0A so a total of 5
 function ExecuteBossWarp()
          if not ReattachGame() then return end
          if not compareTopWindow() then return end
          screen = readInteger(varStage)
          if not has_value(bossWarpTable,screen) then return end
-
+  
          writeInteger(varCheckRespawn,2)
          writeInteger(varIntro,screen)
-         if screen == 11 then --Plains
+         print("Screen value is: ", screen)
+         if screen == 13 then --Plains
             writeFloat(varCheckX,722)
             writeFloat(varCheckY,-406)
          end
-         if screen == 12 then --Pridemoor Keep
+         if screen == 14 then --Pridemoor Keep -- this is now 14  all shifted by 2
             if readInteger(varCharacter) == 2 then --specter knight
                writeFloat(varCheckX,817)
                writeFloat(varCheckY,-201)
@@ -210,11 +219,11 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-191)
             end
          end
-         if screen == 13 then --Lich Yard
+         if screen == 15 then --Lich Yard
             writeFloat(varCheckX,937)
             writeFloat(varCheckY,-112)
          end
-         if screen == 14 then --Explodatorium
+         if screen == 16 then --Explodatorium
             if readInteger(varCharacter) == 2 then
                writeFloat(varCheckX,1002)
                writeFloat(varCheckY,-191)
@@ -223,7 +232,7 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-191)
             end
          end
-         if screen == 15 then --Iron Whale
+         if screen == 17 then --Iron Whale
             if readInteger(varCharacter) == 2 then --specter knight
                writeFloat(varCheckX,752)
                writeFloat(varCheckY,-254)
@@ -232,7 +241,7 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-211)
             end
          end
-         if screen == 16 then --Lost City
+         if screen == 18 then --Lost City
             if readInteger(varCharacter) == 2 then --specter knight
                writeFloat(varCheckX,802)
                writeFloat(varCheckY,-396)
@@ -241,7 +250,7 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-256)
             end
          end
-         if screen == 17 then --Clockwork Tower
+         if screen == 19 then --Clockwork Tower
             if readInteger(varCharacter) == 2 then --specter knight
                writeFloat(varCheckX,677)
                writeFloat(varCheckY,-206)
@@ -250,7 +259,7 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-249)
             end
          end
-         if screen == 18 then --Stranded Ship
+         if screen == 20 then --Stranded Ship
             if readInteger(varCharacter) == 2 then --specter knight
                writeFloat(varCheckX,1026)
                writeFloat(varCheckY,-156)
@@ -259,7 +268,7 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-92)
             end
          end
-         if screen == 19 then --Flying Machine
+         if screen == 21 then --Flying Machine
             if readInteger(varCharacter) == 2 then
                writeFloat(varCheckX,828)
                writeFloat(varCheckY,-92)
@@ -268,7 +277,7 @@ function ExecuteBossWarp()
                 writeFloat(varCheckY,-64)
             end
          end
-         if screen == 20 then --Tower1
+         if screen == 22 then --Tower1
             if readInteger(varCharacter) == 2 then --specter knight
                writeFloat(varCheckX,1084)
                writeFloat(varCheckY,-195)
@@ -277,7 +286,7 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-116)
             end
          end
-         if screen == 21 then --Tower2
+         if screen == 23 then --Tower2
             if readInteger(varCharacter) == 1 then --plague knight
                writeFloat(varCheckX,680)
                writeFloat(varCheckY,-168)
@@ -286,7 +295,7 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-185)
             end
          end
-         if screen == 22 then --Tower3
+         if screen == 24 then --Tower3
             if readInteger(varCharacter) == 2 then --specter knight
                writeFloat(varCheckX,235)
                writeFloat(varCheckY,-35)
@@ -295,11 +304,11 @@ function ExecuteBossWarp()
                writeFloat(varCheckY,-191)
             end
          end
-         if screen == 24 then --Tower hub for specter
+         if screen == 25 then --Tower hub for specter
             writeFloat(varCheckX,234)
             writeFloat(varCheckY,-141)
          end
-         if screen == 38 then --dream 2
+         if screen == 40 then --dream 2
             writeFloat(varCheckX,237)
             writeFloat(varCheckY,-35)
          end
@@ -338,6 +347,7 @@ function CameraUnlock()
             cameralock = addresslist_getMemoryRecordByID(addresslist,423)
             memoryrecord_unfreeze(cameralock)
          end
+        
 end
 
 function ToggleUnlimitedMana()
